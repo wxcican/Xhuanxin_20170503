@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.fuicuiedu.xc.xhuanxin_20170503.R;
+import com.fuicuiedu.xc.xhuanxin_20170503.ui.user.LoginActivity;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -22,15 +23,14 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 //todo 判断登录状态，决定跳转的位置
-                boolean islogin = true;
+                boolean islogin = false;
                 Intent intent;
                 if (islogin){
                     //跳转到主页
                     intent = new Intent(SplashActivity.this,MainActivity.class);
                 }else{
                     //跳转到登录页
-                    intent = new Intent(SplashActivity.this,MainActivity.class);
-//                    intent = new Intent(SplashActivity.this,登录页.class);
+                    intent = new Intent(SplashActivity.this,LoginActivity.class);
                 }
                 startActivity(intent);
                 finish();
