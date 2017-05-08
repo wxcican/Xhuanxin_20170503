@@ -71,9 +71,6 @@ public class RegisterActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 pd.dismiss();
-                                //保存用户登录状态
-                                MyHelper.setLogin(true);
-
                                 Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                                 //跳转到登录页面
                                 finish();

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import com.fuicuiedu.xc.xhuanxin_20170503.MyHelper;
 import com.fuicuiedu.xc.xhuanxin_20170503.R;
 import com.fuicuiedu.xc.xhuanxin_20170503.ui.user.LoginActivity;
+import com.hyphenate.chat.EMClient;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -24,9 +25,11 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 //判断登录状态，决定跳转的位置
-                boolean islogin = MyHelper.getLogin();
                 Intent intent;
-                if (islogin){
+                if (MyHelper.getLogin()){
+                    //两个方法是为了保证进入主页面后本地会话和群组都 load 完毕。
+                    EMClient.getInstance().groupManager().loadAllGroups();
+                    EMClient.getInstance().chatManager().loadAllConversations();
                     //跳转到主页
                     intent = new Intent(SplashActivity.this,MainActivity.class);
                 }else{
