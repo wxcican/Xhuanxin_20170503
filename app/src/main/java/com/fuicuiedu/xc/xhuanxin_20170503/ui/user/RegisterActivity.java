@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.fuicuiedu.xc.xhuanxin_20170503.MyHelper;
 import com.fuicuiedu.xc.xhuanxin_20170503.R;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
@@ -70,7 +71,9 @@ public class RegisterActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 pd.dismiss();
-                                // TODO: 2017/5/3 0003 保存用户登录状态
+                                //保存用户登录状态
+                                MyHelper.setLogin(true);
+
                                 Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                                 //跳转到登录页面
                                 finish();

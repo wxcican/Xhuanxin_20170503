@@ -15,6 +15,9 @@ public class MyApplication extends Application{
     public void onCreate() {
         super.onCreate();
 
+        //初始化本地配置
+        MyHelper.init(this);
+
         //初始化环信SDK
         EMOptions options = new EMOptions();
         // 默认添加好友时，是不需要验证的，改成需要验证

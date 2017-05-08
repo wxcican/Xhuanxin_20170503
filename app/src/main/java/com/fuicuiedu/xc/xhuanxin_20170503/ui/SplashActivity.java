@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.fuicuiedu.xc.xhuanxin_20170503.MyHelper;
 import com.fuicuiedu.xc.xhuanxin_20170503.R;
 import com.fuicuiedu.xc.xhuanxin_20170503.ui.user.LoginActivity;
 
@@ -22,8 +23,8 @@ public class SplashActivity extends AppCompatActivity {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                //todo 判断登录状态，决定跳转的位置
-                boolean islogin = false;
+                //判断登录状态，决定跳转的位置
+                boolean islogin = MyHelper.getLogin();
                 Intent intent;
                 if (islogin){
                     //跳转到主页
