@@ -36,8 +36,12 @@ public class ChatActivity extends AppCompatActivity {
         args.putInt(EaseConstant.EXTRA_CHAT_TYPE, chatType);
         //具体的聊天对象（Id）
         args.putString(EaseConstant.EXTRA_USER_ID, chatId);
+
         chatFragment.setArguments(args);
 
-        getSupportFragmentManager().beginTransaction().add(R.id.layout_container, chatFragment).commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.layout_container, chatFragment)
+                .commit();
     }
 }

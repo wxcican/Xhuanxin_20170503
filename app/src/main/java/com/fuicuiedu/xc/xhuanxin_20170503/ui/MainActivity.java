@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.fuicuiedu.xc.xhuanxin_20170503.MyHelper;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     ViewPager viewPager;
     private List<String> mContacts = new ArrayList<>();
     private EaseContactListFragment mContactListFragment;
+    @BindView(R.id.main_edit)EditText editText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    @OnClick({R.id.btn_conversation, R.id.btn_address_list, R.id.btn_setting})
+    @OnClick({R.id.btn_conversation, R.id.btn_address_list, R.id.btn_setting,R.id.main_start_chat})
     public void onClick(View view) {
         switch (view.getId()) {
             //会话
@@ -113,6 +115,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.btn_setting:
                 //显示设置页面
                 viewPager.setCurrentItem(2);
+                break;
+            //发起会话
+            case R.id.main_start_chat:// 跳转到聊天页面
+                ChatActivity.open(MainActivity.this,editText.getText().toString());
                 break;
         }
     }
