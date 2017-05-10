@@ -3,11 +3,15 @@ package com.fuicuiedu.xc.xhuanxin_20170503.ui;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.fuicuiedu.xc.xhuanxin_20170503.MyHelper;
 import com.fuicuiedu.xc.xhuanxin_20170503.R;
 import com.fuicuiedu.xc.xhuanxin_20170503.ui.user.LoginActivity;
+import com.hyphenate.EMConnectionListener;
+import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.util.NetUtils;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -36,9 +40,48 @@ public class SplashActivity extends AppCompatActivity {
                     //跳转到登录页
                     intent = new Intent(SplashActivity.this,LoginActivity.class);
                 }
+
+                //注册环信连接状态监听
+                EMClient.getInstance().addConnectionListener(new MyConnectionListener());
+
+
                 startActivity(intent);
                 finish();
             }
         }, 1500);
+    }
+
+    //实现环信连接状态监听
+    private class MyConnectionListener implements EMConnectionListener{
+        @Override
+        public void onConnected() {
+        }
+
+        @Override
+        public void onDisconnected(final int errorCode) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if(errorCode == EMError.USER_REMOVED){
+                        // 显示帐号已经被移除
+                        Toast.makeText(SplashActivity.this, "显示帐号已经被移除", Toast.LENGTH_SHORT).show();
+                    }else if (errorCode == EMError.USER_LOGIN_ANOTHER_DEVICE) {
+                        // 显示帐号在其他设备登录
+                        Toast.makeText(SplashActivity.this, "显示帐号在其他设备登录", Toast.LENGTH_SHORT).show();
+                        // TODO: 2017/5/10 0010 当前账号踢出 ，跳入欢迎页
+                    } else {
+                        if (NetUtils.hasNetwork(SplashActivity.this)){
+                            //连接不到聊天服务器
+                            Toast.makeText(SplashActivity.this, "连接不到聊天服务器", Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            //当前网络不可用，请检查网络设置
+                            Toast.makeText(SplashActivity.this, "当前网络不可用，请检查网络设置", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                }
+            });
+        }
     }
 }
